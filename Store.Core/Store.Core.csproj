@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Convertors\" />
+    <Folder Include="DTOs\" />
+    <Folder Include="Generator\" />
+    <Folder Include="Components\" />
+    <Folder Include="Senders\" />
+    <Folder Include="Security\" />
+    <Folder Include="Services\Interfaces\" />
+    <Folder Include="Services\implementations\" />
+  </ItemGroup>
+  
+
+
+</Project>
