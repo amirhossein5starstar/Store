@@ -10,14 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Convertors\" />
-    <Folder Include="DTOs\" />
-    <Folder Include="Generator\" />
     <Folder Include="Components\" />
-    <Folder Include="Senders\" />
-    <Folder Include="Security\" />
-    <Folder Include="Services\Interfaces\" />
-    <Folder Include="Services\implementations\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +20,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Store.Data\Store.Data.csproj" />
   </ItemGroup>
   
 

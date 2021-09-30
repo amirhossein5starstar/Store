@@ -9,7 +9,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Store.Core.Services.implementations;
 using Store.Data.Context;
+using Store.Core.Services.Interfaces;
 
 namespace Store
 {
@@ -35,6 +37,11 @@ namespace Store
             );
             #endregion
 
+            #region IOC
+
+            services.AddScoped<IUserService, UserService>();
+
+            #endregion
         }
 
        
