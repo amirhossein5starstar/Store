@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Store.Data.Entities.User;
 
 namespace Store.Core.Services.Interfaces
@@ -17,8 +18,10 @@ namespace Store.Core.Services.Interfaces
         Task<User> GetUserByActiveCode(string activeCode);
         Task<User> GetUserByUserName(string username);
         void UpdateUser(User user);
-        bool ActiveAccount(string activeCode);
+        Task<bool> ActiveAccount(string activeCode);
         Task<int> GetUserIdByUserName(string userName);
+        Task<bool> LoginUser(User user, bool remember, HttpContext httpContext);
+        
 
     }
 }

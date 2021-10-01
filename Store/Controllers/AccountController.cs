@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Store.Core.Convertors;
 using Store.Core.DTOs.User;
 using Store.Core.Generator;
@@ -65,7 +67,7 @@ namespace Store.Controllers
             };
 
 
-           await _userService.AddUser(user);
+            await _userService.AddUser(user);
 
 
 
@@ -74,7 +76,7 @@ namespace Store.Controllers
             string body = ($@"<a href='" + ActiveUrl + "'>برای فعال سازی اکانت خود کلیک کنید</a>");
 
 
-            SendEmail.Send(user.Email, "فعالسازی HandBook", body);
+            SendEmail.Send(user.Email, "فعالسازی Store", body);
 
 
             ViewBag.account = true;
@@ -84,6 +86,41 @@ namespace Store.Controllers
         }
 
         #endregion
+
+        #region ActiveAccount
+
+        [Route("ActiveAccount")]
+        public async Task<IActionResult> ActiveAccount(string id)
+        {
+
+            //this line save http context of this page in varible 
+            var httpcontext = this.HttpContext;
+            var user = await _userService.GetUserByActiveCode(id);
+
+            //if http context of this page doesn't sent to service the service try to create a new one and it is null than we have null exception
+            if (await _userService.ActiveAccount(id))
+            {
+                await _userService.LoginUser(user, true, httpcontext);
+                return Redirect("/");
+            }
+
+            return NotFound();
+        }
+
+        #endregion
+
+        #region Logout
+        [Route("Logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return Redirect("/Login");
+        }
+
+        #endregion
+
+
+
 
 
     }

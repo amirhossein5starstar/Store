@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Store.Core.Convertors;
 using Store.Core.Generator;
@@ -14,7 +18,7 @@ namespace Store.Core.Services.implementations
 {
     public class UserService : IUserService
     {
-        private  StoreContext _context;
+        private StoreContext _context;
 
         public UserService(StoreContext context)
         {
@@ -63,21 +67,42 @@ namespace Store.Core.Services.implementations
             _context.Users.Update(user);
         }
 
-        public bool ActiveAccount(string activeCode)
+        public async Task<bool> ActiveAccount(string activeCode)
         {
-            var user = _context.Users.SingleOrDefault(u => u.ActiveCode == activeCode);
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.ActiveCode == activeCode);
             if (user == null || user.IsActive)
                 return false;
 
             user.IsActive = true;
             user.ActiveCode = NameGenerator.GenerateUniqCode();
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return true;
         }
 
         public async Task<int> GetUserIdByUserName(string userName)
         {
             return (await _context.Users.SingleAsync(s => s.UserName == userName)).UserId;
+        }
+
+        public async Task<bool> LoginUser(User user, bool remember, HttpContext httpContext)
+        {
+            var claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.NameIdentifier,user.UserName),
+                new Claim(ClaimTypes.Name,user.UserId.ToString())
+            };
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
+
+            var properties = new AuthenticationProperties
+            {
+                IsPersistent = remember
+            };
+
+            // impossible SignInAsync Without this line
+           await httpContext.SignInAsync(principal, properties);
+
+            return true;
         }
     }
 }
