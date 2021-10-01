@@ -9,7 +9,9 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Store.Core.Convertors;
+using Store.Core.DTOs.User;
 using Store.Core.Generator;
+using Store.Core.Security;
 using Store.Core.Services.Interfaces;
 using Store.Data.Context;
 using Store.Data.Entities.User;
@@ -103,6 +105,13 @@ namespace Store.Core.Services.implementations
            await httpContext.SignInAsync(principal, properties);
 
             return true;
+        }
+
+        public async Task<User?> GetUserByLoginViewModel(LoginViewModel user)
+        {
+            string hashPassword = PasswordHash.EncodePasswordMd5(user.Password);
+            string email = FixText.FixTxt(user.Email);
+            return await _context.Users.SingleOrDefaultAsync(u => u.Email == email && u.Password == hashPassword);
         }
     }
 }

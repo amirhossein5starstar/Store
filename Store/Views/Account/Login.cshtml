@@ -1,0 +1,45 @@
+﻿@model LoginViewModel
+
+    <div class="auth-wrapper form-ui border pt-4" style="margin-top: 10%">
+        <div class="section-title title-wide mb-1 no-after-title-wide">
+            <h2 class="font-weight-bold">ورود</h2>
+        </div>
+        <form asp-action="Login" method="post">
+            <div class="form-row-title">
+                <h3>ایمیل </h3>
+            </div>
+            <div class="form-row with-icon">
+                <input asp-for="Email" type="text" class="input-ui pr-2" placeholder="ایمیل خود را وارد نمایید">
+                <i class="mdi mdi-account-circle-outline"></i>
+            </div>
+            <span class="text-danger" asp-validation-for="Email"></span>
+            <div class="form-row-title">
+                <h3>رمز عبور</h3>
+            </div>
+            <div class="form-row with-icon">
+                <input asp-for="Password" type="password" class="input-ui pr-2" placeholder="رمز عبور خود را وارد نمایید">
+                <i class="mdi mdi-lock-open-variant-outline"></i>
+            </div>
+            <span class="text-danger" asp-validation-for="Password"></span>
+            <div class="form-row mt-2">
+                <div class="custom-control custom-checkbox float-right mt-2">
+                    <input asp-for="RememberMe" type="checkbox" class="custom-control-input" id="customCheck3">
+                    <label class="custom-control-label" for="customCheck3">
+                        مرا به خاطر بسپار
+                    </label>
+                </div>
+            </div>
+            <div class="form-row mt-3">
+                <button type="submit" class="btn-primary-cm btn-with-icon mx-auto w-100">
+                    <i class="mdi mdi-login-variant"></i>
+                    ورود 
+                </button>
+            </div>
+        </form>
+        <div class="form-footer mt-3">
+            <div>
+                <span class="font-weight-bold">کاربر جدید هستید؟</span>
+                <a href="register" class="mr-3 mt-2">ثبت نام </a>
+            </div>
+        </div>
+    </div>

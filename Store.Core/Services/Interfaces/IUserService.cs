@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Store.Core.DTOs.User;
 using Store.Data.Entities.User;
 
 namespace Store.Core.Services.Interfaces
@@ -21,7 +22,7 @@ namespace Store.Core.Services.Interfaces
         Task<bool> ActiveAccount(string activeCode);
         Task<int> GetUserIdByUserName(string userName);
         Task<bool> LoginUser(User user, bool remember, HttpContext httpContext);
-        
+        Task<User?> GetUserByLoginViewModel(LoginViewModel user);
 
     }
 }

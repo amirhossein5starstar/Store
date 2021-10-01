@@ -87,6 +87,40 @@ namespace Store.Controllers
 
         #endregion
 
+        #region Login
+
+        [Route("Login")]
+        public async Task<IActionResult> Login()
+        {
+            return View();
+        }
+
+        [Route("Login")]
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel login)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View(login);
+            }
+
+            var httpcontext = this.HttpContext;
+            var user = await _userService.GetUserByLoginViewModel(login);
+
+            //if http context of this page doesn't sent to service the service try to create a new one and it is null than we have null exception
+            if (user!=null)
+            {
+                await _userService.LoginUser(user, login.RememberMe, httpcontext);
+                return Redirect("/");
+            }
+
+            ModelState.AddModelError("Email", errorMessage: "کاربری یافت نشد");
+            return View(login);
+        }
+
+        #endregion
+
         #region ActiveAccount
 
         [Route("ActiveAccount")]
