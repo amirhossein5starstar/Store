@@ -1,0 +1,30 @@
+﻿@model Store.Core.DTOs.User.UserProfileCardViewModel
+<div class="dt-sl dt-sn border mb-3">
+    <div class="profile-sidebar-header dt-sl">
+        <div class="d-flex align-items-center">
+            <div class="profile-avatar">
+                <img src="/ProfileImages/@Model.PictureName" />
+            </div>
+            <div class="profile-header-content mr-3 mt-2">
+                <span class="d-block profile-username">@Model.UserName</span>
+                <span class="d-block profile-phone">@Model.Email</span>
+            </div>
+        </div>
+        <div class="profile-link mt-2 dt-sl">
+            <div class="row">
+                <div class="col-6 text-center">
+                    <a href="UserChangePassword">
+                        <i class="mdi mdi-lock-reset"></i>
+                        <span class="d-block">تغییر رمز</span>
+                    </a>
+                </div>
+                <div class="col-6 text-center">
+                    <a href="Logout">
+                        <i class="mdi mdi-logout-variant"></i>
+                        <span class="d-block">خروج از حساب</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

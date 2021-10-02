@@ -1,0 +1,155 @@
+﻿<div class="row" style="transform: none;">
+    <!-- Start Sidebar -->
+    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 sticky-sidebar" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
+
+        <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none; top: 0px; left: 1022.25px;">
+            <div class="profile-sidebar dt-sl">
+
+                @await Component.InvokeAsync("UserProfileCard")
+
+                <div class="dt-sl dt-sn mb-3 text-center">
+                    <a href="#">
+
+                    </a>
+                </div>
+                <div class="dt-sl dt-sn border mb-3">
+                    <div class="profile-menu-section dt-sl">
+                        <div class="label-profile-menu mt-2 mb-2">
+                            <span>حساب کاربری شما</span>
+                        </div>
+                        <div class="profile-menu">
+                            <ul>
+                                <li>
+                                    <a href="#" class="active">
+                                        <i class="mdi mdi-account-circle-outline"></i>
+                                        پروفایل
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="mdi mdi-basket"></i>
+                                        همه سفارش ها
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="mdi mdi-backburger"></i>
+                                        درخواست مرجوعی
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="mdi mdi-heart-outline"></i>
+                                        لیست علاقمندی ها
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="mdi mdi-glasses"></i>
+                                        نقد و نظرات
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="mdi mdi-sign-direction"></i>
+                                        آدرس ها
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="mdi mdi-eye-outline"></i>
+                                        بازدیدهای اخیر
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="mdi mdi-account-edit-outline"></i>
+                                        اطلاعات شخصی
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div><div class="resize-sensor" style="position: absolute; inset: 0px; overflow: hidden; z-index: -1; visibility: hidden;"><div class="resize-sensor-expand" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 346px; height: 779px;"></div></div><div class="resize-sensor-shrink" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0; top: 0; transition: 0s; width: 200%; height: 200%"></div></div></div>
+        </div>
+    </div>
+    <!-- End Sidebar -->
+    <!-- Start Content -->
+    <div class="col-xl-9 col-lg-8 col-md-8 col-sm-12">
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="section-title text-sm-title title-wide mb-1 no-after-title-wide dt-sl mb-2 px-res-1">
+                    <h2>آخرین سفارش‌ها</h2>
+                </div>
+                <div class="dt-sl">
+                    <div class="table-responsive">
+                        <table class="table table-order">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>شماره سفارش</th>
+                                    <th>تاریخ ثبت سفارش</th>
+                                    <th>مبلغ قابل پرداخت</th>
+                                    <th>مبلغ کل</th>
+                                    <th>عملیات پرداخت</th>
+                                    <th>جزییات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>DDC-57456951</td>
+                                    <td>۳۱ مرداد ۱۳۹۸</td>
+                                    <td>۰</td>
+                                    <td>۹,۹۸۹,۰۰۰ تومان</td>
+                                    <td>لغو شده</td>
+                                    <td class="details-link">
+                                        <a href="#">
+                                            <i class="mdi mdi-chevron-left"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>DKC-45173498</td>
+                                    <td>۱۰ خرداد ۱۳۹۸</td>
+                                    <td>۰</td>
+                                    <td>۱۸,۰۴۹,۰۰۰ تومان</td>
+                                    <td>لغو شده</td>
+                                    <td class="details-link">
+                                        <a href="#">
+                                            <i class="mdi mdi-chevron-left"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>DDC-58976951</td>
+                                    <td>۲۱ مرداد ۱۳۹۸</td>
+                                    <td>۰</td>
+                                    <td>۹,۱۸۹,۰۰۰ تومان</td>
+                                    <td>لغو شده</td>
+                                    <td class="details-link">
+                                        <a href="#">
+                                            <i class="mdi mdi-chevron-left"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="link-to-orders" colspan="7">
+                                        <a href="#">
+                                            مشاهده لیست سفارش
+                                            ها
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Content -->
+</div>

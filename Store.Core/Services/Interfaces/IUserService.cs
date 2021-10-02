@@ -24,5 +24,11 @@ namespace Store.Core.Services.Interfaces
         Task<bool> LoginUser(User user, bool remember, HttpContext httpContext);
         Task<User?> GetUserByLoginViewModel(LoginViewModel user);
 
+        #region UserPanel
+
+        Task<UserProfileCardViewModel> GetUserInformationByUserName(string username);
+
+        #endregion
+
     }
 }

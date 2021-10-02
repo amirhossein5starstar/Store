@@ -90,8 +90,8 @@ namespace Store.Core.Services.implementations
         {
             var claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.NameIdentifier,user.UserName),
-                new Claim(ClaimTypes.Name,user.UserId.ToString())
+                new Claim(ClaimTypes.NameIdentifier,user.UserId.ToString()),
+                new Claim(ClaimTypes.Name,user.UserName)
             };
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(identity);
@@ -112,6 +112,18 @@ namespace Store.Core.Services.implementations
             string hashPassword = PasswordHash.EncodePasswordMd5(user.Password);
             string email = FixText.FixTxt(user.Email);
             return await _context.Users.SingleOrDefaultAsync(u => u.Email == email && u.Password == hashPassword);
+        }
+
+        public async Task<UserProfileCardViewModel> GetUserInformationByUserName(string username)
+        {
+            var user = await _context.Users.SingleOrDefaultAsync(s => s.UserName == username);
+           UserProfileCardViewModel cardViewModel = new UserProfileCardViewModel()
+           {
+               Email = user.Email,
+               PictureName = user.UserAvatar,
+               UserName = user.UserName
+           };
+           return cardViewModel;
         }
     }
 }
