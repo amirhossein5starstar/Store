@@ -127,6 +127,13 @@ namespace Store.Core.Services.implementations
            return cardViewModel;
         }
 
-        
+        public void Save()
+        {
+            _context.SaveChangesAsync();
+        }
+        public void SaveNotAsync()
+        {
+            _context.SaveChanges();
+        }
     }
 }

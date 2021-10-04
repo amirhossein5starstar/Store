@@ -60,7 +60,6 @@ namespace Store.Core.DTOs.User
 
     public class ResetPasswordViewModel
     {
-        public string ActiveCode { get; set; }
 
         [Display(Name = "کلمه عبور")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]

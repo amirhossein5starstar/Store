@@ -23,6 +23,8 @@ namespace Store.Core.Services.Interfaces
         Task<int> GetUserIdByUserName(string userName);
         Task<bool> LoginUser(User user, bool remember, HttpContext httpContext);
         Task<User?> GetUserByLoginViewModel(LoginViewModel user);
+        void Save();
+        void SaveNotAsync();
 
         #region UserPanel
 

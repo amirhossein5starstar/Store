@@ -28,7 +28,7 @@ namespace Store.Controllers
         [Route("Register")]
         public async Task<IActionResult> Register()
         {
-           
+
             ViewBag.account = false;
             return View();
         }
@@ -110,7 +110,7 @@ namespace Store.Controllers
             var user = await _userService.GetUserByLoginViewModel(login);
 
             //if http context of this page doesn't sent to service the service try to create a new one and it is null than we have null exception
-            if (user!=null)
+            if (user != null)
             {
                 await _userService.LoginUser(user, login.RememberMe, httpcontext);
                 return Redirect("/");
@@ -150,6 +150,34 @@ namespace Store.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Redirect("/Login");
+        }
+
+        #endregion
+
+        #region ResetPassword
+
+        [Route("UserChangePassword")]
+        public async Task<IActionResult> UserChangePassword()
+        {
+            return View();
+        }
+
+        [Route("UserChangePassword")]
+        [HttpPost]
+        public async Task<IActionResult> UserChangePassword(ResetPasswordViewModel resetPasswordViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(resetPasswordViewModel);
+            }
+
+            var user = await _userService.GetUserByUserName(User.Identity.Name);
+            user.Password = PasswordHash.EncodePasswordMd5(resetPasswordViewModel.Password);
+            _userService.UpdateUser(user);
+            _userService.SaveNotAsync();
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await _userService.LoginUser(user, true, this.HttpContext);
+            return Redirect("UserPanel");
         }
 
         #endregion
