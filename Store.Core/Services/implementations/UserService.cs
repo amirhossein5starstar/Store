@@ -14,6 +14,7 @@ using Store.Core.Generator;
 using Store.Core.Security;
 using Store.Core.Services.Interfaces;
 using Store.Data.Context;
+using Store.Data.Entities.Product;
 using Store.Data.Entities.User;
 
 namespace Store.Core.Services.implementations
@@ -125,5 +126,7 @@ namespace Store.Core.Services.implementations
            };
            return cardViewModel;
         }
+
+        
     }
 }

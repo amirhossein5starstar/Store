@@ -28,6 +28,7 @@ namespace Store.Controllers
         [Route("Register")]
         public async Task<IActionResult> Register()
         {
+           
             ViewBag.account = false;
             return View();
         }

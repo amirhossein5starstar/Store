@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Store.Data.Entities.Product;
 using Store.Data.Entities.User;
 
 namespace Store.Data.Context
@@ -17,10 +18,18 @@ namespace Store.Data.Context
         }
 
         #region User
-
         public DbSet<User> Users { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Role> Roles { get; set; }
+        #endregion
+
+        #region Product
+
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductComment> ProductComments { get; set; }
+        public DbSet<ProductDetail> ProductDetails { get; set; }
+        public DbSet<ProductGroup> ProductGroups { get; set; }
+        public DbSet<ProductPicture> ProductPictures { get; set; }
 
 
         #endregion

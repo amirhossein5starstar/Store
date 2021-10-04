@@ -13,7 +13,7 @@ namespace Store.Controllers
         [Route("UserPanel")]
         public async Task<IActionResult> UserPanel()
         {
-            return View();
+          return View();
         }
     }
 }
