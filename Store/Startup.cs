@@ -78,6 +78,11 @@ namespace Store
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+
+                    name: "AdminPanel",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
                 app.UseEndpoints(endpoints =>
                 {
                 
