@@ -22,10 +22,12 @@ namespace Store.Core.Services.implementations
     public class UserService : IUserService
     {
         private StoreContext _context;
+        private ISecurityService _securityService;
 
-        public UserService(StoreContext context)
+        public UserService(StoreContext context, ISecurityService securityService)
         {
             _context = context;
+            _securityService = securityService;
         }
 
         public async Task<bool> IsExistUserName(string userName)
@@ -93,7 +95,23 @@ namespace Store.Core.Services.implementations
             {
                 new Claim(ClaimTypes.NameIdentifier,user.UserId.ToString()),
                 new Claim(ClaimTypes.Name,user.UserName)
+                
             };
+            
+            #region AddRole
+
+            var RoleList = await _securityService.GetRoleByUserId(user.UserId);
+            if (RoleList != null)
+            {
+                foreach (string Role in RoleList)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, Role));
+                }
+                
+            }
+
+            #endregion
+
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(identity);
 
@@ -101,7 +119,9 @@ namespace Store.Core.Services.implementations
             {
                 IsPersistent = remember
             };
+           
 
+           
             // impossible SignInAsync Without this line
            await httpContext.SignInAsync(principal, properties);
 

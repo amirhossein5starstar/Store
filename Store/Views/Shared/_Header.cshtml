@@ -1,4 +1,4 @@
-﻿<header class="main-header" >
+﻿<header class="main-header">
     <!-- Start topbar -->
     <div class="container main-container">
         <div class="topbar dt-sl">
@@ -39,49 +39,62 @@
                     </div>
                 </div>
                 <div class="col-md-4 col-6 topbar-left">
+
+
+
                     <ul class="nav float-left">
                         <li class="nav-item account dropdown">
-                           @if (User.Identity.IsAuthenticated)
-            {
-                <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true"
-                   aria-expanded="false">
-                    <span class="label-dropdown text-info">خوش امدید</span>
-                    <i class="mdi mdi-account-circle"></i>
-                </a>
-                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-left">
-                    <a class="dropdown-item" href="UserPanel">
-                        <i class="mdi mdi-account-card-details-outline"></i>پروفایل
-                    </a>
-                
-                    <a class="dropdown-item" href="#">
-                        <i class="mdi mdi-account-edit-outline"></i>مشاهده سفارش ها
-                    </a>
+                            @if (User.Identity.IsAuthenticated)
+                            {
 
-                    <div class="dropdown-divider" role="presentation"></div>
-                    <a class="dropdown-item" href="logout">
-                        <i class="mdi mdi-logout-variant"></i>خروج
-                    </a>
-                </div>
-            }
-            else
-            {
-                <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true"
-                   aria-expanded="false">
-                    <span class="label-dropdown text-danger">لطفا به حساب کاربری خود وارد شوید</span>
-                    <i class="mdi mdi-account-circle-outline"></i>
-                </a>
-                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-left">
-                    <a class="dropdown-item" href="Login">
-                        <i class="mdi mdi-login-variant"></i>ورود
-                    </a>
-                    <a class="dropdown-item" href="register">
-                        <span class="float-left badge badge-dark"></span>
-                        <i class="mdi mdi-account-plus"></i>ایجاد حساب کاربری
-                    </a>
-                   
-                </div>
-            }
-                           
+                                <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">
+                                    <span class="label-dropdown text-info">خوش امدید</span>
+                                    <i class="mdi mdi-account-circle"></i>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-left">
+
+                                    @if (@User.Claims.Any(a => a.Value == "AdminPanel"))
+                                    {
+                                        <a class="dropdown-item btn-success" href="/adminpanel/home">
+                                            <i class="mdi mdi-account-card-details-outline"></i>پنل مدریت سایت
+                                        </a>
+                                    }
+
+                                    <a class="dropdown-item" href="UserPanel">
+                                        <i class="mdi mdi-account-card-details-outline"></i>پروفایل
+                                    </a>
+
+                                    <a class="dropdown-item" href="#">
+                                        <i class="mdi mdi-account-edit-outline"></i>مشاهده سفارش ها
+                                    </a>
+
+                                    <div class="dropdown-divider" role="presentation"></div>
+                                    <a class="dropdown-item" href="logout">
+                                        <i class="mdi mdi-logout-variant"></i>خروج
+                                    </a>
+                                </div>
+                            }
+                            else
+                            {
+                                <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">
+                                    <span class="label-dropdown text-danger">لطفا به حساب کاربری خود وارد شوید</span>
+                                    <i class="mdi mdi-account-circle-outline"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-left">
+                                    <a class="dropdown-item" href="Login">
+                                        <i class="mdi mdi-login-variant"></i>ورود
+                                    </a>
+                                    <a class="dropdown-item" href="register">
+                                        <span class="float-left badge badge-dark"></span>
+                                        <i class="mdi mdi-account-plus"></i>ایجاد حساب کاربری
+                                    </a>
+
+                                </div>
+                            }
+
                         </li>
                     </ul>
                 </div>

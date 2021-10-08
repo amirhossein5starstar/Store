@@ -84,10 +84,6 @@ namespace Store.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Code")
-                        .HasMaxLength(50)
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -161,6 +157,28 @@ namespace Store.Data.Migrations
                     b.HasKey("RoleId");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            RoleId = 1,
+                            RoleTitle = "AdminPanel"
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            RoleTitle = "ManageUser"
+                        },
+                        new
+                        {
+                            RoleId = 3,
+                            RoleTitle = "ManageRoles"
+                        },
+                        new
+                        {
+                            RoleId = 4,
+                            RoleTitle = "ManageProduct"
+                        });
                 });
 
             modelBuilder.Entity("Store.Data.Entities.User.User", b =>

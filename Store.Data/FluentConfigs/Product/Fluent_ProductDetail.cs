@@ -23,9 +23,7 @@ namespace Store.Data.FluentConfigs.Product
                 .Property(p => p.Description)
                 .IsRequired()
                 .HasMaxLength(200);
-            builder
-                .Property(p => p.Code)
-                .HasMaxLength(50);
+           
 
         }
     }

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
@@ -54,12 +55,25 @@ namespace Store
             });
 
             #endregion
-
             #region IOC
 
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ISecurityService, SecurityService>();
 
             #endregion
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminPanel", policy =>
+                    policy.RequireClaim(ClaimTypes.Role, "AdminPanel"));
+                options.AddPolicy("ManageUser", policy =>
+                    policy.RequireClaim(ClaimTypes.Role, "ManageUser"));
+                options.AddPolicy("ManageRoles", policy =>
+                    policy.RequireClaim(ClaimTypes.Role, "ManageRoles"));
+                options.AddPolicy("ManageProduct", policy =>
+                    policy.RequireClaim(ClaimTypes.Role, "ManageProduct"));
+
+            });
         }
 
        
@@ -78,15 +92,13 @@ namespace Store
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-
-                    name: "AdminPanel",
-                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-                );
                 app.UseEndpoints(endpoints =>
                 {
-                
                     endpoints.MapControllerRoute(
+                        name: "Admin",
+                        pattern: "{Area}/{controller}/{action}/{id?}");
+                
+                endpoints.MapControllerRoute(
                         name: "default",
                         pattern: "{controller=Home}/{action=Index}/{id?}");
                 });

@@ -9,8 +9,8 @@ using Store.Data.Context;
 namespace Store.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20211004103640_gtlk")]
-    partial class gtlk
+    [Migration("20211006134928_trt")]
+    partial class trt
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -41,11 +41,6 @@ namespace Store.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
-
-                    b.Property<int>("ProductCode")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasMaxLength(200)
-                        .HasColumnType("int");
 
                     b.Property<int>("ProductGroupId")
                         .HasColumnType("int");
@@ -90,10 +85,6 @@ namespace Store.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Code")
-                        .HasMaxLength(50)
-                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -168,6 +159,13 @@ namespace Store.Data.Migrations
                     b.HasKey("RoleId");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            RoleId = 1,
+                            RoleTitle = "AdminPanel"
+                        });
                 });
 
             modelBuilder.Entity("Store.Data.Entities.User.User", b =>

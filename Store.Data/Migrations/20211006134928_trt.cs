@@ -2,7 +2,7 @@
 
 namespace Store.Data.Migrations
 {
-    public partial class gtlk : Migration
+    public partial class trt : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -58,7 +58,6 @@ namespace Store.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PersianName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     EnglishName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    ProductCode = table.Column<int>(type: "int", maxLength: 200, nullable: false),
                     Price = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     ProductGroupId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -127,7 +126,6 @@ namespace Store.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Code = table.Column<int>(type: "int", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -161,6 +159,11 @@ namespace Store.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "RoleId", "RoleTitle" },
+                values: new object[] { 1, "AdminPanel" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductComments_ProductId",

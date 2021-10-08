@@ -9,7 +9,7 @@ using Store.Data.Entities.User;
 
 namespace Store.Data.FluentConfigs.User
 {
-    public class Fluent_Role: IEntityTypeConfiguration<Role>
+    public class Fluent_Role : IEntityTypeConfiguration<Role>
     {
         public void Configure(EntityTypeBuilder<Role> builder)
         {
@@ -18,6 +18,14 @@ namespace Store.Data.FluentConfigs.User
             builder
                 .Property(p => p.RoleTitle)
                 .IsRequired();
+
+            builder.HasData(
+                new Role() { RoleId = 1, RoleTitle = "AdminPanel" },
+                new Role() { RoleId = 2, RoleTitle = "ManageUser" },
+                new Role() { RoleId = 3, RoleTitle = "ManageRoles" },
+                new Role() { RoleId = 4, RoleTitle = "ManageProduct" }
+            );
+
         }
     }
 }
