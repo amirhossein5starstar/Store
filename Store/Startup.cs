@@ -59,6 +59,7 @@ namespace Store
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ISecurityService, SecurityService>();
+            services.AddScoped<IAdminService, AdminService>();
 
             #endregion
 

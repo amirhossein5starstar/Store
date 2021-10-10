@@ -1,0 +1,106 @@
+﻿@model IEnumerable<User>
+<div class="app-content content">
+    <div class="content-overlay"></div>
+    <div class="content-wrapper">
+        <div class="content-body">
+            <div class="row">
+                <div class="col-12"></div>
+            </div>
+            <!-- Zero configuration table -->
+            <section id="basic-datatable">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">لیست کاربران</h4>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-body card-dashboard">
+                                    <div class="table-responsive">
+                                        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-10">
+                                                    <div class="col-md-6 mb-1">
+                                                        <fieldset>
+                                                            <form>
+                                                                <div class="input-group">
+                                                                    <input name="search" class="form-control" placeholder="جستوجوی کاربر" aria-describedby="button-addon2">
+                                                                    <div class="input-group-append" id="button-addon2">
+                                                                        <button class="btn btn-primary bx bx-search" asp-route-id="search" type="submit" type="button"></button>
+                                                                    </div>
+                                                                    <div class="input-group-append" id="button-addon2">
+                                                                        <a href="/AdminPanel/ManageUserAccess/UserList/" class="btn btn-danger bx bxs-x-circle"  type="submit" type="button"></a>
+                                                                    </div>
+
+                                                                </div>
+                                                            </form>
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <table class="table table-dark mb-0" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>@Html.DisplayNameFor(model => model.UserId)</th>
+                                                                <th>@Html.DisplayNameFor(model => model.UserName)</th>
+                                                                <th>@Html.DisplayNameFor(model => model.Email)</th>
+                                                                <th>دسترسی ها</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach (var item in Model)
+                                                        {
+                                                            <tr role="row" class="odd">
+
+                                                               
+                                                                    <td>@item.UserId</td>
+                                                                    <td>@item.UserName</td>
+                                                                    <td>@item.Email</td>
+                                                                    <td>
+                                                                        <a class="text-info" asp-action="UserAccess" asp-route-id="@item.UserId">تغییر</a>
+                                                                    </td>
+                                                               
+
+                                                            </tr>
+
+                                                        }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12 col-md-7">
+                                                    <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                                                        <ul class="pagination ">
+
+                                                            <li class="paginate_button page-item next">
+                                                                <a href="/AdminPanel/ManageUserAccess/UserList/?pageid=1&search=@ViewBag.searchtitle" class=" btn btn-dark round " >صفحه اول</a>
+                                                            </li>
+                            
+                                                            @for (int i = 1; i <= (ViewBag.PageCount ); i++)
+                                                            {
+                                                                <li class=" paginate_button page-item @(((int)ViewBag.PageID==i)?"active":"")">
+                                                                    <a href="/AdminPanel/ManageUserAccess/UserList/?pageid=@i&search=@ViewBag.searchtitle" class="page-link " >@i</a>
+                                                                </li>
+                                                            }
+                                                            <li class="paginate_button page-item next">
+                                                                <a href="/AdminPanel/ManageUserAccess/UserList/?pageid=@(ViewBag.PageCount)&search=@ViewBag.searchtitle" class="btn btn-dark round " >صفحه اخر</a>
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
