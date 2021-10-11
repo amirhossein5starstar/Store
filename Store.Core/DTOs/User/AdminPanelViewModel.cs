@@ -18,4 +18,15 @@ namespace Store.Core.DTOs.User
         [Display(Name = "ایمیل")]
         public string Email { get; set; }
     }
+
+    public class AdminPersonRolesViewModel
+    {
+        [Display(Name = "RoleID")]
+        public int RoleId { get; set; }
+        [Display(Name = "دسترسی")]
+        public string RoleTitle { get; set; }
+        [Display(Name = "دسترسی دارد/ندارد")]
+        public bool IsChecked { get; set; }
+
+    }
 }

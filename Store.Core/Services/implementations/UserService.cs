@@ -155,5 +155,11 @@ namespace Store.Core.Services.implementations
         {
             _context.SaveChanges();
         }
+
+        public async  Task<string> GetUserNameById(int userId)
+        {
+            var user = await _context.Users.SingleOrDefaultAsync(w => w.UserId == userId);
+            return user.UserName;
+        }
     }
 }

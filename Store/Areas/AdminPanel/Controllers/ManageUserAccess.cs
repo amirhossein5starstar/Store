@@ -14,10 +14,14 @@ namespace Store.Areas.AdminPanel.Controllers
     public class ManageUserAccess : Controller
     {
         private IAdminService _AdminService;
+        private IUserService _userService;
+        private ISecurityService _securityService;
 
-        public ManageUserAccess(IAdminService adminService)
+        public ManageUserAccess(IAdminService adminService, IUserService userService, ISecurityService securityService)
         {
             _AdminService = adminService;
+            _userService = userService;
+            _securityService = securityService;
         }
 
 
@@ -39,11 +43,37 @@ namespace Store.Areas.AdminPanel.Controllers
             }
 
             personList = await  _AdminService.PersonList(take, skip, search);
-
-
             ViewBag.PageCount = Math.Ceiling(Count / 5);
             
             return View(personList);
+        }
+
+        public async Task<IActionResult> UserAccess(int id,bool? change)
+        {
+            ViewData["change"] = change;
+            ViewData["UserName"] = await _userService.GetUserNameById(id);
+            List<Role> allRoles = await _securityService.GetAllRoles();
+            ViewData["RoleCount"] = allRoles.Count;
+            List<Role> userRoles = await _securityService.GetUserRoles(id);
+
+            List<AdminPersonRolesViewModel> Roles = new List<AdminPersonRolesViewModel>();
+            foreach (Role role in allRoles)
+            {
+                Roles.Add(new AdminPersonRolesViewModel()
+                {
+                    IsChecked = userRoles.Any(a=>a.RoleId==role.RoleId) ,
+                    RoleId = role.RoleId,
+                    RoleTitle = role.RoleTitle
+                });
+            }
+            return View(Roles);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UserAccess(List<AdminPersonRolesViewModel> adminPersonRolesViewModel, int id)
+        {
+           await _securityService.AddRoleToUser(adminPersonRolesViewModel, id);
+            return Redirect($"/AdminPanel/ManageUserAccess/UserAccess/{id}?change=true");
         }
     }
 }

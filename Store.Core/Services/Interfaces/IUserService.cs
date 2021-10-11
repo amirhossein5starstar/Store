@@ -16,6 +16,7 @@ namespace Store.Core.Services.Interfaces
         Task<int> AddUser(User user);
         Task<User> GetUserByEmail(string email);
         Task<User> GetUserById(int userId);
+        Task<string> GetUserNameById(int userId);
         Task<User> GetUserByActiveCode(string activeCode);
         Task<User> GetUserByUserName(string username);
         void UpdateUser(User user);
