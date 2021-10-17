@@ -11,6 +11,8 @@ namespace Store.Data.Entities.Product
         public int Id { get; set; }
         public string Title { get; set; }
 
+        public bool IsDelete { get; set; }
+
         public List<Product> Products { get; set; }
     }
 }

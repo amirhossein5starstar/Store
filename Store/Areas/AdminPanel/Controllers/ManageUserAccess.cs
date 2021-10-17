@@ -24,7 +24,7 @@ namespace Store.Areas.AdminPanel.Controllers
             _securityService = securityService;
         }
 
-
+        
         public async Task<IActionResult> UserList(string? search, int? pageid=1 )
         {
            
@@ -37,7 +37,7 @@ namespace Store.Areas.AdminPanel.Controllers
             if (search != null)
             {
                 personList = await _AdminService.PersonList(take, skip, search);
-                Count = personList.Count;
+                Count = personList.Count - 1;
                 ViewBag.PageCount = Math.Ceiling(Count / 5)+1;
                 return View(personList);
             }

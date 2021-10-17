@@ -29,4 +29,14 @@ namespace Store.Core.DTOs.User
         public bool IsChecked { get; set; }
 
     }
+
+    public class AdminCreateProductGroup
+    {
+
+        [Required]
+        [MaxLength(50)]
+        [Display(Name = "نام گروه")]
+        public string Title { get; set; }
+
+    }
 }
