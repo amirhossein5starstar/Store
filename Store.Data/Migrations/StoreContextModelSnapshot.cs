@@ -30,6 +30,13 @@ namespace Store.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<string>("ImageTitle")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("IsShowInStore")
+                        .HasColumnType("bit");
+
                     b.Property<string>("PersianName")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -42,6 +49,10 @@ namespace Store.Data.Migrations
 
                     b.Property<int>("ProductGroupId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ProductReview")
+                        .HasMaxLength(1500)
+                        .HasColumnType("nvarchar(1500)");
 
                     b.HasKey("Id");
 

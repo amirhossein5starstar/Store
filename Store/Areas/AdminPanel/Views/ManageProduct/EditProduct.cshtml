@@ -1,0 +1,215 @@
+﻿@model AdminEditProduct
+<div class="app-content content">
+    <div class="content-overlay"></div>
+    <div class="content-wrapper">
+        <div class="content-header row">
+            <div class="content-header-left col-12 mb-2 mt-1">
+                <div class="row breadcrumbs-top">
+                    <h4 class=" card-header badge-circle-light-success">افزودن محصول</h4>
+                    <div class="card-header" style="height: 50%;width: 20%">
+                        <div id="AjaxOnSave" style="display: none">
+                            <div class="spinner-border text-success" role="status">
+                                <span class="sr-only">در حال بارگذاری ...</span>
+                            </div>
+                        </div>
+
+                        <div id="AjaxOnSaveSuccess" class="badge badge-success badge-icon mr-1 mb-1" style="display: none">
+                            <i class="bx bx-check"></i>
+                        </div>
+                        <div id="AjaxOnSaveError" class="badge badge-danger badge-icon mr-1 mb-1" style="display: none">
+                            <i class="bx bx-error"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="procuctid" id="ProductId" value="@Model.Id" />
+        <div class="content-body">
+            <section id="basic-horizontal-layouts">
+                <div class="row match-height">
+                    <div class="col-md-6 col-12">
+                        <div class="card" style="height: auto;">
+
+                            <div class="card-content">
+                                <div class="card-body">
+
+                                    <form class="form form-horizontal" method="post" enctype="multipart/form-data">
+                                        <div class="form-body">
+                                            <img src="/ProductImages/@Model.ImageTitle" id="imgP" class="user-profile-image rounded" alt="user profile image" height="140" width="140">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>عکس اصلی محصول</label>
+                                                </div>
+                                                <div class="col-md-8 form-group">
+                                                    <input type="file" size="1" class="form-control-file" id="ProductTitlePicture">
+
+                                                </div>
+                                                <div class="col-sm-12 d-flex justify-content-end">
+                                                    <button type="button" id="Imagesave" class="btn btn-primary mr-1 mb-1">ذخیره</button>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </form>
+
+
+
+                                    <form method="post" class="form form-horizontal">
+                                        <input type="hidden" value="@Model.Id" />
+                                        <div class="form-body">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>نام فارسی محصول</label>
+                                                </div>
+                                                <div class="col-md-8 form-group">
+                                                    <input type="text" id="FarsiName" class="form-control" name="Fname" value="@Model.PersianName" placeholder="نام فارسی محصول">
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label>نام انگلیسی محصول</label>
+                                                </div>
+                                                <div class="col-md-8 form-group">
+                                                    <input type="text" id="EnglishName" class="form-control" name="Ename" value="@Model.EnglishName" placeholder="نام انگلیسی محصول">
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label>قیمت به تومان</label>
+                                                </div>
+                                                <div class="col-md-8 form-group">
+                                                    <input type="text" id="PriceNumber" class="form-control" name="Price" value="@Model.Price" placeholder="قیمت به تومان">
+                                                </div>
+
+
+
+                                                <div class="col-12 col-md-8 offset-md-4 form-group">
+                                                    <fieldset>
+                                                        
+                                                            <input type="checkbox" class="checkbox__input" id="IsShowInProduct"  checked="@Model.IsShowInStore">
+                                                            <label for="checkbox1">نمایش در صفحه محصولات</label>
+                                                      
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-sm-12 d-flex justify-content-end">
+                                                    <button type="button" id="NamePricesave" class="btn btn-primary mr-1 mb-1">ذخیره</button>
+                                                   
+
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            
+            function readURL(input) {
+
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#imgP').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            $(document).ajaxStart(function () {
+                $("#AjaxOnSave").css("display", "block");
+                $("#AjaxOnSaveSuccess").css("display", "none");
+                $("#AjaxOnSaveError").css("display", "none");
+            });
+            $(document).ajaxError(function (event, request, settings) {
+                $("#AjaxOnSave").css("display", "none");
+                $("#AjaxOnSaveError").css("display", "block");
+            });
+            $(document).ajaxSuccess(function () {
+                $("#AjaxOnSave").css("display", "none");
+                $("#AjaxOnSaveSuccess").css("display", "block");
+            });
+           
+            function uploadFile(inputId, ProductId) {
+
+                var fileUpload = $("#" + inputId).get(0);
+                var ProductIdName = $("#" + ProductId).get(0).value
+                
+
+                var files = fileUpload.files;
+                console.log(files[0]);
+                var formData = new FormData();
+                formData.append("ProductImage", files[0]);
+                formData.append("ProductId", ProductIdName);
+
+                $.ajax({
+                    url: '/adminpanel/ManageProduct/SaveImage',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                });
+                
+            }
+
+
+
+
+
+
+            function NamePriceSave(FarsiNameId, EnglishNameId, PriceNumberId, ProductId, IsShowInProduct) {
+
+                var FarsiName = $("#" + FarsiNameId).get(0).value;
+                var EnglishName = $("#" + EnglishNameId).get(0).value;
+                var PriceNumber = $("#" + PriceNumberId).get(0).value;
+                var ProductIdName = $("#" + ProductId).get(0).value;
+                var IsShow = $("#" + IsShowInProduct).get(0).checked;
+                
+                
+                
+
+
+               
+               
+                var formData = new FormData();
+                formData.append("ProductId", ProductIdName);
+                formData.append("ProductEnglishName", EnglishName);
+                formData.append("ProductPersianName", FarsiName);
+                formData.append("ProductPrice", PriceNumber);
+                formData.append("IsShow", IsShow);
+                console.log(formData);
+                $.ajax({
+                    url: '/adminpanel/ManageProduct/SaveNamesPrice',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                });
+
+            }
+
+
+            $("#ProductTitlePicture").change(function () {
+                readURL(this);
+            });
+            $("#Imagesave").click(function () {
+                uploadFile("ProductTitlePicture", "ProductId");
+            });
+            $("#NamePricesave").click(function () {
+                NamePriceSave("FarsiName", "EnglishName", "PriceNumber", "ProductId","IsShowInProduct");
+            });
+        })
+    </script>
+}

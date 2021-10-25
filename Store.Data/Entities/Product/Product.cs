@@ -11,9 +11,12 @@ namespace Store.Data.Entities.Product
     {
 
         public int Id { get; set; }
+        public string ImageTitle { get; set; }
         public string PersianName { get; set; }
         public string EnglishName { get; set; }
+        public string ProductReview { get; set; }
         public string Price { get; set; }
+        public bool IsShowInStore { get; set; }
 
         public int ProductGroupId { get; set; }
         public ProductGroup ProductGroup { get; set; }

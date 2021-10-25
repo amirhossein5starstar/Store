@@ -39,4 +39,26 @@ namespace Store.Core.DTOs.User
         public string Title { get; set; }
 
     }
+
+    public class AdminEditProduct
+    {
+
+        public int Id { get; set; }
+        [MaxLength(500)]
+        public string ImageTitle { get; set; }
+        [MaxLength(200)]
+        public string PersianName { get; set; }
+        [MaxLength(200)]
+        public string EnglishName { get; set; }
+        [MaxLength(1500)]
+        public string ProductReview { get; set; }
+        [MaxLength(20)]
+        public string Price { get; set; }
+        public bool IsShowInStore { get; set; }
+
+        
+
+    }
+
+
 }

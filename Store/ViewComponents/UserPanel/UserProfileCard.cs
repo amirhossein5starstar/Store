@@ -22,8 +22,7 @@ namespace Store.ViewComponents.UserPanel
         public async Task<IViewComponentResult> InvokeAsync()
         {
             return await Task.FromResult((IViewComponentResult)View("UserProfileCard", await userService.GetUserInformationByUserName(User.Identity.Name)));
-            //var s = userService.CountPerson();
-            //return await Task.FromResult((IViewComponentResult)View("/Pages/components/PersonCounterCOM/PersonCounterCOM.cshtml", userService.CountPersonForComponent()));
+            
         }
     }
 }

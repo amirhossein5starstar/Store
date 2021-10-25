@@ -83,5 +83,80 @@ namespace Store.Core.Services.implementations
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<int> CountProducts(int id)
+        {
+            return await _context.Products.Where(w => w.ProductGroupId == id).CountAsync();
+        }
+
+        public async Task<List<Product>> ProductList(int id, int take, int skip, string search)
+        {
+            IQueryable<Product> ProductList = _context.Products.Where(w => w.ProductGroupId == id);
+            if (search != null)
+            {
+                ProductList = ProductList
+                    .Where(w => w
+                        .EnglishName
+                        .Contains(search) || w.PersianName
+                        .Contains(search) || w.Id
+                        .ToString().Contains(search) || w.Price
+                        .Contains(search));
+            }
+
+            ProductList = ProductList.OrderByDescending(p => p.Id).Skip(skip).Take(take);
+
+
+            return await ProductList.ToListAsync();
+        }
+
+        public async Task<int> FastCreateProduct(string ProductNameF, string ProductNameE, string price, int groupid)
+        {
+            var product = _context.Products;
+            Product NewProduct = new Product()
+            {
+                EnglishName = ProductNameE,
+                PersianName = ProductNameF,
+                Price = price,
+                ProductGroupId = groupid,
+                ImageTitle = "Default.jpg",
+                IsShowInStore = false
+            };
+            await product.AddAsync(NewProduct);
+            await _context.SaveChangesAsync();
+
+            return NewProduct.Id;
+
+
+
+        }
+
+        public async Task<bool> IsExistProduct(int id)
+        {
+            return await _context.Products.AnyAsync(a => a.Id == id);
+        }
+
+        public async Task<AdminEditProduct> GetProductById(int id)
+        {
+            var product = await _context.Products.SingleOrDefaultAsync(s => s.Id == id);
+            var productForView = new AdminEditProduct()
+            {
+                Id = product.Id,
+                PersianName = product.PersianName,
+                EnglishName = product.EnglishName,
+                Price = product.Price,
+                ImageTitle = product.ImageTitle,
+                IsShowInStore = product.IsShowInStore,
+                ProductReview = product.ProductReview
+            };
+            return productForView;
+        }
+
+        public async Task<bool> UpdateProductImageTitle(string ImageTitle, int ProductId)
+        {
+            var product = await _context.Products.SingleOrDefaultAsync(s => s.Id == ProductId);
+            product.ImageTitle = ImageTitle;
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }

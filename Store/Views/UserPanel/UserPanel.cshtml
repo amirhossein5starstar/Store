@@ -4,14 +4,10 @@
 
         <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none; top: 0px; left: 1022.25px;">
             <div class="profile-sidebar dt-sl">
-
-                @await Component.InvokeAsync("UserProfileCard")
-
-                <div class="dt-sl dt-sn mb-3 text-center">
-                    <a href="#">
-
-                    </a>
+                <div>
+                    @await Component.InvokeAsync("UserProfileCard")
                 </div>
+        
                 <div class="dt-sl dt-sn border mb-3">
                     <div class="profile-menu-section dt-sl">
                         <div class="label-profile-menu mt-2 mb-2">
@@ -152,4 +148,13 @@
         </div>
     </div>
     <!-- End Content -->
+
 </div>
+
+
+
+@section Scripts{
+    <script>
+
+    </script>
+}

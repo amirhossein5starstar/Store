@@ -23,6 +23,15 @@ namespace Store.Data.FluentConfigs.Product
                 .IsRequired()
                 .HasMaxLength(200);
             builder
+                .Property(p => p.IsShowInStore)
+                .IsRequired();
+            builder
+                .Property(p => p.ProductReview)
+                .HasMaxLength(1500);
+            builder
+                .Property(p => p.ImageTitle)
+                .HasMaxLength(500);
+            builder
                 .Property(p => p.Price)
                 .IsRequired()
                 .HasMaxLength(20);
@@ -42,6 +51,7 @@ namespace Store.Data.FluentConfigs.Product
                 .HasMany(h => h.ProductComments)
                 .WithOne(w => w.Product)
                 .HasForeignKey(h => h.ProductId);
+
         }
     }
 }

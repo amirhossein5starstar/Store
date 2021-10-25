@@ -12,10 +12,17 @@ namespace Store.Core.Services.Interfaces
     public interface IAdminService
     {
         Task<int> CountUsers();
+        Task<int> CountProducts(int id);
         Task<List<User>> PersonList(int take, int skip, string? search);
         Task<List<ProductGroup>> productGroupList();
         Task<bool> DeleteProductGroup(int id);
         Task<bool> AddProductGroup(AdminCreateProductGroup adminCreateProductGroup);
+        Task<List<Product>> ProductList(int id, int take, int skip, string? search);
+        Task<int> FastCreateProduct(string ProductNameF, string ProductNameE, string price, int groupid);
+        Task<bool> IsExistProduct(int id);
+        Task<AdminEditProduct> GetProductById(int id);
+        Task<bool> UpdateProductImageTitle(string ImageTitle, int ProductId);
+
 
     }
 }
