@@ -23,6 +23,7 @@ namespace Store.Controllers
         {
             _userService = userService;
         }
+
         #region Register
 
         [Route("Register")]
@@ -101,11 +102,10 @@ namespace Store.Controllers
         public async Task<IActionResult> Login(LoginViewModel login)
         {
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 return View(login);
-            }
-
+            }  
             var httpcontext = this.HttpContext;
             var user = await _userService.GetUserByLoginViewModel(login);
 

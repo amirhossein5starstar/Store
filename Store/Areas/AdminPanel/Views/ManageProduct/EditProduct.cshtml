@@ -27,6 +27,7 @@
         <div class="content-body">
             <section id="basic-horizontal-layouts">
                 <div class="row match-height">
+
                     <div class="col-md-6 col-12">
                         <div class="card" style="height: auto;">
 
@@ -61,7 +62,7 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <label>نام فارسی محصول</label>
-                                                </div>
+                                                </div >
                                                 <div class="col-md-8 form-group">
                                                     <input type="text" id="FarsiName" class="form-control" name="Fname" value="@Model.PersianName" placeholder="نام فارسی محصول">
                                                 </div>
@@ -84,15 +85,15 @@
 
                                                 <div class="col-12 col-md-8 offset-md-4 form-group">
                                                     <fieldset>
-                                                        
-                                                            <input type="checkbox" class="checkbox__input" id="IsShowInProduct"  checked="@Model.IsShowInStore">
-                                                            <label for="checkbox1">نمایش در صفحه محصولات</label>
-                                                      
+
+                                                        <input type="checkbox" class="checkbox__input" id="IsShowInProduct" checked="@Model.IsShowInStore">
+                                                        <label for="checkbox1">نمایش در صفحه محصولات</label>
+
                                                     </fieldset>
                                                 </div>
                                                 <div class="col-sm-12 d-flex justify-content-end">
                                                     <button type="button" id="NamePricesave" class="btn btn-primary mr-1 mb-1">ذخیره</button>
-                                                   
+
 
 
                                                 </div>
@@ -100,11 +101,40 @@
 
                                         </div>
                                     </form>
+
+
+                                    <form class="form form-horizontal" method="post" >
+                                        <div class="form-body">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>نوع ویژگی محصول</label>
+                                                </div>
+                                                <div class="col-md-8 form-group">
+                                                    <input type="text" id="ProductDetailTitle" class="form-control" name="Ename"  placeholder="نوع ویژگی محصول">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label>ویژگی محصول</label>
+                                                </div>
+                                                <div class="col-md-8 form-group">
+                                                    <input type="text" id="ProductDetailDescription" class="form-control" name="Ename"  placeholder="ویژگی محصول">
+                                                </div>
+                                                <div class="col-sm-12 d-flex justify-content-end">
+                                                    <button type="button" id="ProductDetailSave" class="btn btn-primary mr-1 mb-1">ذخیره</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                    <div class="col-md-6 col-12">
+                        <div class="card">
+                            <div id="ProductShowCard">
+                                @await Component.InvokeAsync("ProductShowCard", Model.Id)
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>
@@ -115,7 +145,7 @@
 {
     <script>
         $(document).ready(function () {
-            
+
             function readURL(input) {
 
                 if (input.files && input.files[0]) {
@@ -123,7 +153,7 @@
 
                     reader.onload = function (e) {
                         $('#imgP').attr('src', e.target.result);
-                    }
+                    };
 
                     reader.readAsDataURL(input.files[0]);
                 }
@@ -140,13 +170,16 @@
             $(document).ajaxSuccess(function () {
                 $("#AjaxOnSave").css("display", "none");
                 $("#AjaxOnSaveSuccess").css("display", "block");
+                $.get("/adminpanel/ManageProduct/ProductShowCard/@Model.Id", function(data) {
+                    $("#ProductShowCard").html(data);
+                });
             });
-           
+
             function uploadFile(inputId, ProductId) {
 
                 var fileUpload = $("#" + inputId).get(0);
-                var ProductIdName = $("#" + ProductId).get(0).value
-                
+                var ProductIdName = $("#" + ProductId).get(0).value;
+
 
                 var files = fileUpload.files;
                 console.log(files[0]);
@@ -161,7 +194,7 @@
                     processData: false,
                     contentType: false,
                 });
-                
+
             }
 
 
@@ -176,20 +209,13 @@
                 var PriceNumber = $("#" + PriceNumberId).get(0).value;
                 var ProductIdName = $("#" + ProductId).get(0).value;
                 var IsShow = $("#" + IsShowInProduct).get(0).checked;
-                
-                
-                
-
-
-               
-               
                 var formData = new FormData();
                 formData.append("ProductId", ProductIdName);
                 formData.append("ProductEnglishName", EnglishName);
                 formData.append("ProductPersianName", FarsiName);
                 formData.append("ProductPrice", PriceNumber);
                 formData.append("IsShow", IsShow);
-                console.log(formData);
+                
                 $.ajax({
                     url: '/adminpanel/ManageProduct/SaveNamesPrice',
                     type: 'POST',
@@ -200,6 +226,25 @@
 
             }
 
+            function productDetailSave(ProductDetailTitle,ProductDetailDescription)
+            {
+                var ProductDetailTitle = $("#" + ProductDetailTitle).get(0).value;
+                var ProductDetailDescription = $("#" + ProductDetailDescription).get(0).value;
+
+                var formData = new FormData();
+                formData.append("ProductDetailTitle", ProductDetailTitle);
+                formData.append("ProductDetailDescription", ProductDetailDescription);
+                console.log(formData);
+
+                $.ajax({
+                    url: '/adminpanel/ManageProduct/ProductDetail',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                });
+
+            }
 
             $("#ProductTitlePicture").change(function () {
                 readURL(this);
@@ -208,7 +253,10 @@
                 uploadFile("ProductTitlePicture", "ProductId");
             });
             $("#NamePricesave").click(function () {
-                NamePriceSave("FarsiName", "EnglishName", "PriceNumber", "ProductId","IsShowInProduct");
+                NamePriceSave("FarsiName", "EnglishName", "PriceNumber", "ProductId", "IsShowInProduct");
+            });
+            $("#ProductDetailSave").click(function () {
+                productDetailSave("ProductDetailTitle","ProductDetailDescription");
             });
         })
     </script>

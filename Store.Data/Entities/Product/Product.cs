@@ -21,7 +21,6 @@ namespace Store.Data.Entities.Product
         public int ProductGroupId { get; set; }
         public ProductGroup ProductGroup { get; set; }
         public List<ProductDetail> ProductDetails { get; set; }
-        public List<ProductPicture> ProductPictures { get; set; }
         public List<ProductComment> ProductComments { get; set; }
 
     }

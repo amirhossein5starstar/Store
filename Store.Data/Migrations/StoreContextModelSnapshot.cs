@@ -135,28 +135,6 @@ namespace Store.Data.Migrations
                     b.ToTable("ProductGroups");
                 });
 
-            modelBuilder.Entity("Store.Data.Entities.Product.ProductPicture", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("PictureName")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductPictures");
-                });
-
             modelBuilder.Entity("Store.Data.Entities.User.Role", b =>
                 {
                     b.Property<int>("RoleId")
@@ -288,17 +266,6 @@ namespace Store.Data.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Store.Data.Entities.Product.ProductPicture", b =>
-                {
-                    b.HasOne("Store.Data.Entities.Product.Product", "Product")
-                        .WithMany("ProductPictures")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("Store.Data.Entities.User.UserRole", b =>
                 {
                     b.HasOne("Store.Data.Entities.User.Role", "Role")
@@ -323,8 +290,6 @@ namespace Store.Data.Migrations
                     b.Navigation("ProductComments");
 
                     b.Navigation("ProductDetails");
-
-                    b.Navigation("ProductPictures");
                 });
 
             modelBuilder.Entity("Store.Data.Entities.Product.ProductGroup", b =>

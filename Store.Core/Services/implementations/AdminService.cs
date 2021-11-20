@@ -158,5 +158,37 @@ namespace Store.Core.Services.implementations
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<bool> SaveProductNamePrice(string ProductEnglishName, string ProductPersianName, string ProductPrice, int ProductId, bool IsShow)
+        {
+            var product = await _context.Products.SingleOrDefaultAsync(s => s.Id == ProductId);
+
+            product.EnglishName = ProductEnglishName;
+            product.PersianName = ProductPersianName;
+            product.Price = ProductPrice;
+            product.IsShowInStore = IsShow;
+
+           await _context.SaveChangesAsync();
+           return true;
+
+        }
+
+        public async Task<ProductShowCard> GetProductForShowComponet(int id)
+        {
+            var product =await _context.Products.Where(w => w.Id == id).Select(s => new ProductShowCard()
+            {
+                PersianName = s.PersianName,
+                EnglishName = s.EnglishName,
+                ImageTitle = s.ImageTitle,
+                Price = s.Price
+            }).SingleOrDefaultAsync();
+
+            return  product;
+        }
+
+        public async Task<string> GetProductImageTitleByProductId(int ProductId)
+        {
+         return _context.Products.Where(w => w.Id == ProductId).Select(product => product.ImageTitle).Single();
+        }
     }
 }

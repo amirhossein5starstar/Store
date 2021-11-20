@@ -43,10 +43,7 @@ namespace Store.Data.FluentConfigs.Product
                 .HasMany(h => h.ProductDetails)
                 .WithOne(h => h.Product)
                 .HasForeignKey(h => h.ProductId);
-            builder
-                .HasMany(h => h.ProductPictures)
-                .WithOne(w => w.Product)
-                .HasForeignKey(h => h.ProductId);
+           
             builder
                 .HasMany(h => h.ProductComments)
                 .WithOne(w => w.Product)

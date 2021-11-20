@@ -9,6 +9,7 @@ using Store.Core.DTOs.User;
 using Store.Core.Services.Interfaces;
 using Store.Data.Entities.Product;
 
+
 namespace Store.Areas.AdminPanel.Controllers
 {
     [Area("AdminPanel")]
@@ -21,6 +22,7 @@ namespace Store.Areas.AdminPanel.Controllers
         {
             _AdminService = adminService;
         }
+
         public async Task<IActionResult> ProductGroup()
         {
             ViewData["productGroupList"] = await _AdminService.productGroupList();
@@ -115,6 +117,16 @@ namespace Store.Areas.AdminPanel.Controllers
                 return StatusCode(400);
             }
 
+            string OldImage = await _AdminService.GetProductImageTitleByProductId(ProductId);
+            if (OldImage != "Default.jpg")
+            {
+                string deleteimagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/ProductImages/", OldImage);
+                if (System.IO.File.Exists(deleteimagePath))
+                {
+                    System.IO.File.Delete(deleteimagePath);
+                }
+            }
+
 
             string ImageTitle = Guid.NewGuid().ToString() + Path.GetExtension(ProductImage.FileName);
             var uploads = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/ProductImages/");
@@ -145,12 +157,28 @@ namespace Store.Areas.AdminPanel.Controllers
                 return StatusCode(400);
             }
 
-
-
+            if (await _AdminService.SaveProductNamePrice(ProductEnglishName,ProductPersianName,ProductPrice,ProductId,IsShow))
+            {
+                return StatusCode(200);
+            }
 
             return StatusCode(400);
         }
+
+        public async Task<IActionResult> ProductShowCard(int id)
+        {
+            return ViewComponent("ProductShowCard", id);
+        }
         #endregion
+        [HttpPost]
+        public async Task<IActionResult> ProductDetail(string ProductDetailTitle ,string ProductDetailDescription)
+        {
+            if (ProductDetailTitle !=null || ProductDetailDescription !=null)
+            {
+                return StatusCode(400);
+            }
+            return StatusCode(400);
+        }
 
     }
 }

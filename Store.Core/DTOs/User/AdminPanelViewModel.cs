@@ -60,5 +60,17 @@ namespace Store.Core.DTOs.User
 
     }
 
+    #region ComponentsViewModels
+
+    public class ProductShowCard    
+    {
+        public string ImageTitle { get; set; }
+        public string PersianName { get; set; }
+        public string EnglishName { get; set; }
+        public string Price { get; set; }
+    }
+
+    #endregion
+
 
 }

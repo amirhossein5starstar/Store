@@ -22,6 +22,9 @@ namespace Store.Core.Services.Interfaces
         Task<bool> IsExistProduct(int id);
         Task<AdminEditProduct> GetProductById(int id);
         Task<bool> UpdateProductImageTitle(string ImageTitle, int ProductId);
+        Task<string> GetProductImageTitleByProductId(int ProductId);
+        Task<bool> SaveProductNamePrice(string ProductEnglishName, string ProductPersianName, string ProductPrice, int ProductId, bool IsShow);
+        Task<ProductShowCard> GetProductForShowComponet(int id);
 
 
     }

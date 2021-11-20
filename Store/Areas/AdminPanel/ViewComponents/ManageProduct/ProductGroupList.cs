@@ -18,7 +18,7 @@ namespace Store.Areas.AdminPanel.ViewComponents.ManageProduct
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            return await Task.FromResult((IViewComponentResult)View("UserProfileCard", await _adminService.productGroupList()));
+            return await Task.FromResult((IViewComponentResult)View("productGroupListCard", await _adminService.productGroupList()));
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Store.Data.Context
         public DbSet<ProductComment> ProductComments { get; set; }
         public DbSet<ProductDetail> ProductDetails { get; set; }
         public DbSet<ProductGroup> ProductGroups { get; set; }
-        public DbSet<ProductPicture> ProductPictures { get; set; }
+        
 
 
         #endregion

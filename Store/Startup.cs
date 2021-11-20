@@ -29,6 +29,7 @@ namespace Store
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            
 
             #region DataBase Context
 
