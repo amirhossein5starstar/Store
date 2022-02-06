@@ -101,11 +101,10 @@ namespace Store.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel login)
         {
-
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(login);
-            }  
+            }
             var httpcontext = this.HttpContext;
             var user = await _userService.GetUserByLoginViewModel(login);
 
