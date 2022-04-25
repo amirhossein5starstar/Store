@@ -13,7 +13,7 @@ namespace Store.Core.Senders
         {
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.outlook.com");
-            mail.From = new MailAddress("amirhosseinstore@outlook.com", "Store");
+            mail.From = new MailAddress("store@outlook.com", "Store");
             mail.To.Add(to);
             mail.Subject = subject;
             mail.Body = body;
@@ -25,7 +25,7 @@ namespace Store.Core.Senders
             // mail.Attachments.Add(attachment);
 
             SmtpServer.Port = 25;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("amirhosseinstore@outlook.com", "Store2021");
+            SmtpServer.Credentials = new System.Net.NetworkCredential("store@outlook.com", "store password");
 
             SmtpServer.Send(mail);
 
